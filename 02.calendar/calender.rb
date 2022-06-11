@@ -3,7 +3,7 @@
 require 'optparse'
 require 'date'
 
-class Calendre
+class Calender
   
   def initialize
     calender_date = ARGV.getopts("","y:#{Date.today.year}","m:#{Date.today.month}")
@@ -16,11 +16,7 @@ class Calendre
     @enum = Enumerator.new{|y|
       (firstday .. lastday).each{|day|
         day.cwday.times{y << "  "} if day.day == 1 && day.cwday != 7
-          if day.day <= 9
-            y << " #{day.day}"
-          else
-            y << "#{day.day}"
-          end
+        y << "%2d" % day.day
         }
       }
   end
@@ -33,5 +29,5 @@ class Calendre
   end
 end
 
-Calendre.new.output 
+Calender.new.output 
 
