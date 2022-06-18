@@ -1,36 +1,25 @@
 # frozen_string_literal: true
 
-score = ARGV[0]
-scores = score.split(',')
 shots = []
-scores.each do |s|
-  if s == 'X'
-    shots << 10
-    shots << 0
-  else
-    shots << s.to_i
-  end
-end
-
+ARGV[0].gsub('X', '10,0').split(',').each { |s| shots << s.to_i }
 (24 - shots.count).times { shots << 0 }
 
-shot_set = shots.each_slice(2)
-index_shot_set = []
-shot_set.each_with_index do |s, i|
-  index_shot_set[i] = [s, [i]]
+shot_set_with_index = []
+shots.each_slice(2).with_index do |s, i|
+  shot_set_with_index << { shot_set: s, index: i }
 end
 
 point = 0
-index_shot_set.each_cons(3) do |s|
-  case s[0][1].first
+shot_set_with_index.each_cons(3) do |first, second, third|
+  case first[:index]
   when 0..8
-    point += s[2][0].first if s[0][0].first == 10 && s[1][0].first == 10
-    point += s[1][0].sum if s[0][0].first == 10
-    point += s[1][0].first if s[0][0].sum == 10 && s[0][0].first != 10
-    point += s[0][0].sum
-    point += s[1][0].sum + s[2][0].sum if s[0][1].first == 8
+    point += third[:shot_set][0] if first[:shot_set][0] == 10 && second[:shot_set][0] == 10
+    point += second[:shot_set].sum if first[:shot_set][0] == 10
+    point += second[:shot_set][0] if first[:shot_set].sum == 10 && first[:shot_set][0] != 10
+    point += first[:shot_set].sum
+    point += second[:shot_set].sum + third[:shot_set].sum if first[:index] == 8
   when 9
-    point += s[2][0].sum
+    point += third[:shot_set].sum
   end
 end
 
