@@ -2,7 +2,7 @@
  
 require 'optparse'
 require 'date'
- 
+
 class Calender
  
   def initialize
@@ -28,7 +28,7 @@ class Calender
     @enum.each_slice(7){|week|puts week.join(" ")}
   end
 end
- 
+
 Calender.new.output
- 
+
 
