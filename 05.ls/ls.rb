@@ -40,14 +40,17 @@ class LSCommand
     Dir.chdir(path) do
       file_names = @options[:a] ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
       file_names = @options[:r] ? file_names.reverse : file_names
-      @options[:l] ? l_option_display(l_option_file_information(path, file_names)) : default_display(file_names)
+      if @options[:l]
+        l_option_display(l_option_file_information(path, file_names))
+      else
+        default_display(file_names)
+      end
     end
   end
 
   def l_option_file_information(path, file_names)
     file_names.map do |filename|
       file_info = File.lstat(filename)
-      link_to_file = " -> #{File.readlink("#{path}#{filename}")}" if file_info.symlink?
       {
         blocks: file_info.blocks,
         file_type: FILE_TYPE[file_info.ftype],
@@ -60,7 +63,7 @@ class LSCommand
         size: file_info.size,
         date: file_info.mtime.strftime('%_m %e %H:%M'),
         file_name: filename,
-        link: link_to_file
+        link: file_info.symlink? ? " -> #{File.readlink("#{path}#{filename}")}" : nil
       }
     end
   end
