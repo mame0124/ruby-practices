@@ -14,23 +14,23 @@ def wc
 
   if file_names
     file_names.each do |filename|
-      file_info_output(filename)
+      print_count_with_filename(filename)
     end
   else
     txt = $stdin.read
-    display(txt)
+    print_count_by_options(txt)
     print "\n"
   end
 end
 
-def file_info_output(file_name)
+def print_count_with_filename(file_name)
   txt = File.read(file_name)
-  display(txt)
+  print_count_by_options(txt)
   print " #{file_name}"
   print "\n"
 end
 
-def display(txt)
+def print_count_by_options(txt)
   print format('%8d', txt.lines.count) if @options[:l] || @options.empty?
   print format('%8d', txt.split.size) if @options[:w] || @options.empty?
   print format('%8d', txt.size) if @options[:c] || @options.empty?
