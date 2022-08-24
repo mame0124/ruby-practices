@@ -10,12 +10,9 @@ def wc
   opt.on('-c') { |v| @options[:c] = v }
   opt.parse!(ARGV)
 
-  file_names = ARGV if ARGV[1]
-  file_name = ARGV[0] if ARGV[0] && ARGV[1].nil?
+  file_names = ARGV
 
-  if file_name
-    file_info_output(file_name)
-  elsif file_names
+  if file_names
     file_names.each do |filename|
       file_info_output(filename)
     end
