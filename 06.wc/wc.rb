@@ -51,24 +51,36 @@ def print_count_by_total
 end
 
 def print_count_by_option_l(txt)
-  return unless @options[:l] || @options.empty?
+  return unless print_line_length?
 
   print format('%8d', txt.lines.count)
   @lines_count += txt.lines.count
 end
 
 def print_count_by_option_w(txt)
-  return unless @options[:w] || @options.empty?
+  return unless print_word_count?
 
   print format('%8d', txt.split.size)
   @words_count += txt.split.size
 end
 
 def print_count_by_option_c(txt)
-  return unless @options[:c] || @options.empty?
+  return unless print_byte_size?
 
   print format('%8d', txt.size)
   @bytes_count += txt.size
+end
+
+def print_line_length?
+  @options.key?(:l) || @options.empty?
+end
+
+def print_word_count?
+  @options[:w] || @options.empty?
+end
+
+def print_byte_size?
+  @options[:c] || @options.empty?
 end
 
 wc
