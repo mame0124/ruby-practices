@@ -43,9 +43,9 @@ def print_count_with_filename(file_name)
 end
 
 def print_count_by_total
-  print format('%8d', @lines_count) if @lines_count
-  print format('%8d', @words_count) if @words_count
-  print format('%8d', @bytes_count) if @bytes_count
+  print format('%8d', @lines_count) if print_line_length?
+  print format('%8d', @words_count) if print_word_count?
+  print format('%8d', @bytes_count) if print_byte_size?
   print ' total'
   print "\n"
 end
