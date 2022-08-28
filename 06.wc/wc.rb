@@ -10,9 +10,9 @@ def wc
   opt.on('-c') { |v| @options[:c] = v }
   opt.parse!(ARGV)
 
-  @lines_count = 0 if @options[:l] || @options.empty?
-  @words_count = 0 if @options[:w] || @options.empty?
-  @bytes_count = 0 if @options[:c] || @options.empty?
+  @lines_count = 0
+  @words_count = 0
+  @bytes_count = 0
   file_names = ARGV
 
   output(file_names)
