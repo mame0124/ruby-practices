@@ -16,16 +16,25 @@ class Frame
     point
   end
 
-  def spare?
-    !@first_shot.strike? && @first_shot.score + @second_shot.score == 10
+  def strike?
+    @first_shot.mark == 'X'
   end
 
-  def add_one_shot(third_shot)
+  def spare?
+    !strike? && @first_shot.score + @second_shot.score == 10
+  end
+
+  def add_second_shot(second_shot)
+    @second_shot = second_shot
+    self
+  end
+
+  def add_third_shot(third_shot)
     @third_shot = third_shot
     self
   end
 
-  def add_two_shots(second_shot, third_shot)
+  def add_second_and_third_shots(second_shot, third_shot)
     @second_shot = second_shot
     @third_shot = third_shot
     self
