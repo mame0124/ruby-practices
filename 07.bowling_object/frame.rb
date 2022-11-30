@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Frame
+  TOTAL_AMOUNT = 10
   attr_reader :first_shot, :second_shot, :third_shot
 
   def initialize(first_shot, second_shot = nil, third_shot = nil)
@@ -21,7 +22,7 @@ class Frame
   end
 
   def spare?
-    !strike? && @first_shot.score + @second_shot.score == 10
+    !strike? && @first_shot.score + @second_shot.score == TOTAL_AMOUNT
   end
 
   def add_second_shot(second_shot)
