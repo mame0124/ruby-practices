@@ -12,16 +12,15 @@ class Game
         frame
       else
         frame.add_second_shot(Shot.new(all_shots.shift))
+        frame
       end
     end
 
-    @all_frames[-1] = if @all_frames[-1].strike?
-                        @all_frames[-1].add_second_and_third_shots(Shot.new(all_shots.shift), Shot.new(all_shots.shift))
-                      elsif @all_frames[-1].spare?
-                        @all_frames[-1].add_third_shot(Shot.new(all_shots.shift))
-                      else
-                        @all_frames[-1]
-                      end
+    if @all_frames[-1].strike?
+      @all_frames[-1].add_second_and_third_shots(Shot.new(all_shots.shift), Shot.new(all_shots.shift))
+    elsif @all_frames[-1].spare?
+      @all_frames[-1].add_third_shot(Shot.new(all_shots.shift))
+    end
   end
 
   def score

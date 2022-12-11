@@ -27,17 +27,14 @@ class Frame
 
   def add_second_shot(second_shot)
     @second_shot = second_shot
-    self
   end
 
   def add_third_shot(third_shot)
     @third_shot = third_shot
-    self
   end
 
   def add_second_and_third_shots(second_shot, third_shot)
     @second_shot = second_shot
     @third_shot = third_shot
-    self
   end
 end
