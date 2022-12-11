@@ -8,12 +8,8 @@ class Game
     @all_frames = Array.new(10) do
       shot = Shot.new(all_shots.shift)
       frame = Frame.new(shot)
-      if frame.strike?
-        frame
-      else
-        frame.add_second_shot(Shot.new(all_shots.shift))
-        frame
-      end
+      frame.add_second_shot(Shot.new(all_shots.shift)) unless frame.strike?
+      frame
     end
 
     if @all_frames[-1].strike?
