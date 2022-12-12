@@ -24,13 +24,13 @@ class Game
     @all_frames.each_cons(3).with_index do |frames, index|
       point += frames[0].score
       point += addition_score_for_strike(frames) if frames[0].strike?
-      point += addition_score_for_spare(frames) if frames[0].spare?
+      point += frames[1].first_shot.score if frames[0].spare?
 
       if index == 7
         point += frames[1].score
         point += frames[2].score
-        point += addition_score_for_strike_last_frame(frames) if frames[1].strike?
-        point += addition_score_for_spare_last_frame(frames) if frames[1].spare?
+        point += frames[2].first_shot.score + frames[2].second_shot.score if frames[1].strike?
+        point += frames[2].first_shot.score if frames[1].spare?
       end
     end
     point
@@ -42,17 +42,5 @@ class Game
     point = frames[1].score
     point += frames[2].first_shot.score if frames[1].strike?
     point
-  end
-
-  def addition_score_for_strike_last_frame(frames)
-    frames[2].first_shot.score + frames[2].second_shot.score
-  end
-
-  def addition_score_for_spare(frames)
-    frames[1].first_shot.score
-  end
-
-  def addition_score_for_spare_last_frame(frames)
-    frames[2].first_shot.score
   end
 end
