@@ -24,7 +24,7 @@ class Game
     @all_frames.each_cons(3).with_index do |frames, index|
       point += frames[0].score
       if frames[0].strike?
-        point = frames[1].score
+        point += frames[1].score
         point += frames[2].first_shot.score if frames[1].strike?
       end
       point += frames[1].first_shot.score if frames[0].spare?
