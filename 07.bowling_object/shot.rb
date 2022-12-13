@@ -3,6 +3,8 @@
 require_relative 'frame'
 
 class Shot
+  FULL_POINT = 10
+  FULL_POINT_MARK = 'X'
   attr_reader :mark
 
   def initialize(mark)
@@ -11,8 +13,7 @@ class Shot
 
   def score
     return unless @mark
-    return 10 if @mark == 'X'
 
-    @mark.to_i
+    @mark == FULL_POINT_MARK ? FULL_POINT : @mark.to_i
   end
 end
